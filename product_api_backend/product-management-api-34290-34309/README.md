@@ -23,6 +23,7 @@ Getting Started
 Endpoints
 - GET /products
 - POST /products
+- GET /products/total-balance
 - GET /products/:id
 - PUT /products/:id
 - DELETE /products/:id
@@ -63,6 +64,13 @@ Request/Response Examples
 - Delete
   DELETE /products/1
   204 No Content
+
+- Total Balance
+  GET /products/total-balance
+  Example:
+  curl -s http://localhost:3001/products/total-balance
+  200 OK:
+  { "totalBalance": 199.95 }
 
 Validation
 - name: string, required, non-empty

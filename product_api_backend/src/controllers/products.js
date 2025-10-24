@@ -38,6 +38,18 @@ class ProductsController {
   }
 
   // PUBLIC_INTERFACE
+  totalBalance(req, res) {
+    /**
+     * Returns the total value of inventory as sum of price * quantity across all products.
+     * Response shape: { "totalBalance": number }
+     */
+    const total = productService.getTotalBalance();
+    // Ensure numeric response
+    const safeTotal = Number.isFinite(total) ? total : 0;
+    return res.status(200).json({ totalBalance: safeTotal });
+  }
+
+  // PUBLIC_INTERFACE
   create(req, res) {
     /** Create a new product. */
     const errors = validateProductPayload(req.body);

@@ -33,6 +33,27 @@ router.get('/', (req, res) => productsController.list(req, res));
 
 /**
  * @swagger
+ * /products/total-balance:
+ *   get:
+ *     summary: Get total inventory balance
+ *     description: Computes and returns the total value of inventory as the sum of price * quantity across all products.
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Total inventory balance computed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalBalance:
+ *                   type: number
+ *                   example: 199.95
+ */
+router.get('/total-balance', (req, res) => productsController.totalBalance(req, res));
+
+/**
+ * @swagger
  * /products:
  *   post:
  *     summary: Create a product

@@ -98,10 +98,30 @@ function deleteProduct(id) {
   return true;
 }
 
+/**
+ * Computes total inventory balance as sum of (price * quantity) across all products.
+ * Ensures numeric validation and treats invalid or missing numeric fields as 0.
+ * Returns a finite number (0 when no products).
+ */
+// PUBLIC_INTERFACE
+function getTotalBalance() {
+  /** Returns the total value of inventory as a number. */
+  // Defensive: coerce values and ignore invalids by treating them as 0
+  return products.reduce((acc, p) => {
+    const price = typeof p.price === 'number' && Number.isFinite(p.price) && p.price >= 0 ? p.price : 0;
+    const quantity = typeof p.quantity === 'number' && Number.isInteger(p.quantity) && p.quantity >= 0 ? p.quantity : 0;
+    const productTotal = price * quantity;
+    // Guard against non-finite results
+    if (!Number.isFinite(productTotal)) return acc;
+    return acc + productTotal;
+  }, 0);
+}
+
 module.exports = {
   listProducts,
   createProduct,
   getProductById,
   updateProduct,
   deleteProduct,
+  getTotalBalance,
 };
